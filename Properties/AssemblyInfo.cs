@@ -5,17 +5,17 @@ using System.Runtime.InteropServices.ComTypes;
 using MelonLoader;
 using PernaModTestv1; // The namespace of your mod class
 // ...
-[assembly: MelonInfo(typeof(ModTestv1), "ModTestv1", "1.0.0", "Pernaveee")]
+[assembly: MelonInfo(typeof(HeavenlyLoading), "Heavenly Loading", "1.0.0", "Pernaveee")]
 [assembly: MelonGame("Little Flag Software, LLC", "Neon White")]
 ///
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PernaModTestv1")]
+[assembly: AssemblyTitle("Heavenly Loading")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PernaModTestv1")]
+[assembly: AssemblyProduct("Heavenly Loading")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

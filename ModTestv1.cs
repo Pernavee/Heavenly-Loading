@@ -20,7 +20,7 @@ using UnityEngine.Experimental.AssetBundlePatching;
 
 
 // figuring out loading mod
-namespace PernaModTestv1
+namespace HeavenlyLoading
 {
     [HarmonyPatch]
     public class ModTestv1 : MelonMod
