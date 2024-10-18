@@ -1,10 +1,9 @@
-﻿using MelonLoader;
+using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
 using HarmonyLib;
 using System.IO;
 
-// figuring out loading mod
 namespace HeavenlyLoading
 {
     
@@ -13,7 +12,6 @@ namespace HeavenlyLoading
     {
 
         private static Material cache;
-
 
         private static MelonPreferences_Category loadingScreenCategory;
 
@@ -27,11 +25,11 @@ namespace HeavenlyLoading
             loadingScreenCategory = MelonPreferences.CreateCategory("Heavenly Loading");
             customImage = loadingScreenCategory.CreateEntry<string>("Custom Image File Path", default_value: "", description: "Sets the black loading screen to a custom image.\nEnter the file path for the desired image. (remember to remove quotes!)\nSupports JPG and PNG image files.");
             presetImages = loadingScreenCategory.CreateEntry<bool>("Load Preset Images", default_value: false, description: "Enable this to set the loading screen to match your location. This overrides the custom loading screen image.");
-            imageColor = loadingScreenCategory.CreateEntry<Color>("Recolor Background Screen", default_value: Color.white, description: "Use this to recolor the loading screen.\nThis stacks with other options! Set as white to load images without any discoloring.");
+            imageColor = loadingScreenCategory.CreateEntry<Color>("Recolor Background Screen", default_value: Color.black, description: "Use this to recolor the loading screen.\nThis stacks with other options! Set as white to load images without any discoloring.");
         }
         public override void OnPreferencesSaved()
         {
-
+            
             if (customImage.Value!=null)
                 {
                     SetCustomLoading();
@@ -40,16 +38,14 @@ namespace HeavenlyLoading
                 {
                     SetPresetLoading();
                 }
-            
-            
+            SetColor();
+
+
+
         }
         public override void OnLateUpdate()
         {
-            if (!presetImages.Value)
-            {
-                return;
-            }
-            else
+            if (presetImages.Value)
             {
                 SetPresetLoading();
             }
@@ -61,14 +57,11 @@ namespace HeavenlyLoading
         {
             Graphic screen = MainMenu._instance._screenLoading.background.GetComponent<Graphic>();
             Material newMat = mat;
-
             cache = newMat;
-
             screen.material = cache;
         }
         private static Texture2D LoadTexture(byte[] image)
         {
-
             Texture2D texture2D = new Texture2D(1, 1, TextureFormat.RGBA32, false);
             ImageConversion.LoadImage(texture2D, image, true);
             texture2D.wrapMode = TextureWrapMode.Clamp;
@@ -84,19 +77,16 @@ namespace HeavenlyLoading
             if (!File.Exists(path))
             {
                 screen.color = Color.black;
+                screen.material = screen.defaultMaterial;
                 MelonLogger.Warning("Custom image file not found: " + path);
                 return;
             }
+
             var file = File.ReadAllBytes(path);
             Texture tex = LoadTexture(file);
 
-
-            screen.color = imageColor.Value;
-
-
             newMat.mainTexture = tex;
             cache = newMat;
-
             SetLoadingScreen(cache);
         }
         private static void SetPresetLoading()
@@ -107,11 +97,10 @@ namespace HeavenlyLoading
                 screen = MainMenu._instance._screenLoading.GetComponentInChildren<Graphic>();
             }
             Material mat = new Material(screen.material);
-
             Sprite sprLvl = Singleton<Game>.Instance.GetCurrentLevel().GetPreviewImage();
             Sprite sprLoc = Singleton<MainMenu>.Instance.GetCurrentLocation().background;
-
             Texture tex = null;
+
             if (sprLvl != null)
             {
                 tex = sprLvl.texture;
@@ -120,7 +109,6 @@ namespace HeavenlyLoading
             {
                 tex = sprLoc.texture;
             }
-
             
             if (tex == null)
             {
@@ -130,9 +118,18 @@ namespace HeavenlyLoading
 
             mat.mainTexture = tex;
             cache = mat;
-            screen.color = imageColor.Value;
             SetLoadingScreen(mat);
 
+        }
+
+        private static void SetColor()
+        {
+            Graphic screen = null;
+            if (MainMenu._instance._screenLoading.GetComponentInChildren<Graphic>() != null)
+            {
+                screen = MainMenu._instance._screenLoading.GetComponentInChildren<Graphic>();
+            }
+            screen.color = imageColor.Value;
         }
 
     }
