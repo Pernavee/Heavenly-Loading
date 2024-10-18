@@ -25,7 +25,7 @@ namespace HeavenlyLoading
         public override void OnLateInitializeMelon()
         {
             loadingScreenCategory = MelonPreferences.CreateCategory("Heavenly Loading");
-            customImage = loadingScreenCategory.CreateEntry<string>("Custom Image File Path", default_value: "", description: "Sets the black loading screen to a custom image.\nEnter the file path for the desired image. (remember to remove quotes!)\nSupports BMP, TIF, TGA, JPG, and PSD image files.");
+            customImage = loadingScreenCategory.CreateEntry<string>("Custom Image File Path", default_value: "", description: "Sets the black loading screen to a custom image.\nEnter the file path for the desired image. (remember to remove quotes!)\nSupports JPG and PNG image files.");
             presetImages = loadingScreenCategory.CreateEntry<bool>("Load Preset Images", default_value: false, description: "Enable this to set the loading screen to match your location. This overrides the custom loading screen image.");
             imageColor = loadingScreenCategory.CreateEntry<Color>("Recolor Background Screen", default_value: Color.white, description: "Use this to recolor the loading screen.\nThis stacks with other options! Set as white to load images without any discoloring.");
         }
