@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.ComTypes;
 using MelonLoader;
 using HeavenlyLoading; // The namespace of your mod class
 // ...
-[assembly: MelonInfo(typeof(HeavenLoading), "Heavenly Loading", "1.0.0", "Pernaveee")]
+[assembly: MelonInfo(typeof(HeavenLoading), "Heavenly Loading", "1.0.1", "Pernaveee")]
 [assembly: MelonGame("Little Flag Software, LLC", "Neon White")]
 ///
 // General Information about an assembly is controlled through the following
@@ -35,5 +35,5 @@ using HeavenlyLoading; // The namespace of your mod class
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
