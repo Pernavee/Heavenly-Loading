@@ -9,8 +9,8 @@ namespace HeavenlyLoading
 {
     public class HeavenLoading : MelonMod
     {
-        private static DateTime lastLoggedTime = DateTime.MinValue;
-        private static readonly TimeSpan logInterval = TimeSpan.FromSeconds(1);
+        private static float wait;
+        private static float interval = 1.0f;
 
         private static Material cache;
 
@@ -26,37 +26,65 @@ namespace HeavenlyLoading
             customImage = loadingScreenCategory.CreateEntry<string>("Load Custom Image", default_value: "", description: "Sets the loading screen to a custom image.\nEnter the file path for the desired image. (Remember to remove quotes!)\nSupports JPG and PNG image files.");
             presetImages = loadingScreenCategory.CreateEntry<bool>("Load Preset Images", default_value: false, description: "Enable this to set the loading screen to a preset image that matches your location. This overrides the custom loading screen image.");
             imageColor = loadingScreenCategory.CreateEntry<Color>("Recolor Background Screen", default_value: Color.black, description: "Use this to recolor the loading screen.\nThis stacks with other options! Set as white to load images without any discoloring.");
-            logs = loadingScreenCategory.CreateEntry<bool>("Enable Extra Console Logging", default_value: false, description: "Enable this to have the console log extra messages. Keep disabled unless it is for troubleshooting. Warning messages will still appear even when disabled.");
+            logs = loadingScreenCategory.CreateEntry<bool>("Enable Extra Console Logging", default_value: false, description: "Enable this to log extra messages to the console. Keep disabled if you are not troubleshooting.");
         }
         public override void OnPreferencesSaved()
         {
             SetColor();
-            if (!string.IsNullOrEmpty(customImage.Value))
-            {
-                if (logs.Value) { MelonLogger.Msg("Custom Image Path: " + customImage.Value); }
-                SetCustomLoading();
-            }
+
             if (presetImages.Value == true)
             {
-                if (logs.Value) { MelonLogger.Msg("Preset Images Enabled"); }
+                if (logs.Value) MelonLogger.Msg("Preset Images Enabled");
                 SetPresetLoading();
-                if (logs.Value) { MelonLogger.Msg("Preset Loading Set! This overrides the Custom Loading."); }
+                if (logs.Value) MelonLogger.Msg("Preset Loading Set! This overrides the Custom Loading.");
+            }
+            else if (!string.IsNullOrEmpty(customImage.Value))
+            {
+                if (logs.Value) MelonLogger.Msg("Custom Image Path: " + customImage.Value);
+                SetCustomLoading();
             }
         }
 
         public override void OnLateUpdate()
         {
-            if (presetImages.Value == true)
+            wait += Time.deltaTime;
+            if (wait >= interval)
             {
-                DateTime now = DateTime.Now;
-                if (now - lastLoggedTime > logInterval)
+                wait -= interval;
+
+                try
                 {
-                    SetColor();
-                    SetPresetLoading();
-                    if (logs.Value) { MelonLogger.Msg("Preset Loading Set!"); }
-                    lastLoggedTime = now;
+                    if (presetImages.Value == true)
+                    {
+                        SetColor();
+                        SetPresetLoading();
+                    }
+                }
+                catch (NullReferenceException e)
+                {
                 }
             }
+            base.OnLateUpdate();
+        }
+
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        {
+            try
+            {
+                SetColor();
+                if (presetImages.Value == true)
+                {
+                    SetPresetLoading();
+                }
+                else if (!string.IsNullOrEmpty(customImage.Value)) 
+                {
+                    SetCustomLoading();
+                }
+            }
+            catch (NullReferenceException e)
+            {
+            }
+            base.OnSceneWasLoaded(buildIndex, sceneName);
         }
 
         private static void SetLoadingScreen(Material mat)
@@ -91,93 +119,94 @@ namespace HeavenlyLoading
             var file = File.ReadAllBytes(path);
             Texture tex = LoadTexture(file);
 
+            if (newMat.mainTexture == tex) return;
+
             newMat.mainTexture = tex;
             cache = newMat;
             SetLoadingScreen(cache);
-            MelonLogger.Warning("Custom Loading Set!");
+            if (logs.Value) MelonLogger.Msg("Custom Loading Set!");
         }
         private static void SetPresetLoading()
         {
-            Graphic screen = null;
-
-            if (MainMenu._instance != null)
+            Graphic screen;
+            try
             {
-                if (MainMenu._instance._screenLoading != null)
-                {
-                    screen = MainMenu._instance._screenLoading.GetComponentInChildren<Graphic>();
-                }
-                else
-                {
-                    MelonLogger.Warning("MainMenu._instance._screenLoading is null");
-                }
+                screen = MainMenu._instance._screenLoading.GetComponentInChildren<Graphic>();
             }
-            else
+            catch (NullReferenceException e) 
             {
-                MelonLogger.Warning("MainMenu._instance is null");
-            }
-
-            if (screen == null)
-            {
-                MelonLogger.Warning("screen is null");
+                if (logs.Value) MelonLogger.Warning("MainMenu._instance._screenLoading is null");
                 return;
             }
 
-            Material mat = screen.material != null ? new Material(screen.material) : null;
-
-            if (mat == null)
+            Material mat;
+            try
             {
-                MelonLogger.Warning("screen material is null");
+                mat = new Material(screen.material);
+            }
+            catch (NullReferenceException e)
+            {
+                if (logs.Value) MelonLogger.Warning("screen material is null");
                 return;
             }
 
-            Sprite sprLvl = Singleton<Game>.Instance?.GetCurrentLevel()?.GetPreviewImage();
-            Sprite sprLoc = Singleton<MainMenu>.Instance?.GetCurrentLocation()?.background;
-            if (sprLvl == null || sprLoc == null)
+            Sprite sprLvl = null, sprLoc = null;
+            try
             {
-                if (sprLvl == null)
-                {
-                    MelonLogger.Warning("Current level preview image is null");
-                }
-                if (sprLoc == null)
-                {
-                    MelonLogger.Warning("Current location background is null");
+                 sprLvl = Singleton<Game>.Instance.GetCurrentLevel().GetPreviewImage();
+                 sprLoc = Singleton<MainMenu>.Instance.GetCurrentLocation().background;
+            }
+            catch (NullReferenceException e) 
+            {
+                if (logs.Value) MelonLogger.Warning("Current location image is null");
+                if (!sprLoc && !sprLvl) {
+                    screen.color = Color.black;
+                    screen.material = screen.defaultMaterial;
                 }
             }
 
             Texture tex = null;
-            if (sprLvl != null)
+            try
             {
-                tex = sprLvl.texture;
+                if (sprLvl != null)
+                    tex = sprLvl.texture;
+                else if (sprLoc != null)
+                    tex = sprLoc.texture;
+                else
+                {
+                    screen.color = Color.black;
+                    tex = screen.defaultMaterial.mainTexture;
+                    if (logs.Value) MelonLogger.Msg(tex.ToString());
+                }
+                mat.mainTexture = tex;
+                cache = mat;
+                SetLoadingScreen(mat);
+                if (logs.Value) MelonLogger.Msg("Preset Loading Set!");
             }
-            else if (sprLoc != null)
-            {
-                tex = sprLoc.texture;
-            }
-
-            if (tex == null)
+            catch (NullReferenceException e)
             {
                 screen.color = Color.black;
                 screen.material = screen.defaultMaterial;
-                MelonLogger.Warning("tex is null, moving to default color");
-                return;
+                if (logs.Value) MelonLogger.Warning("Setting screen material failed, moving to default color. (Error: " + e + " )");
             }
 
-            if (logs.Value) { MelonLogger.Msg(tex.ToString()); }
-            mat.mainTexture = tex;
-            cache = mat;
-            SetLoadingScreen(mat);
+            return;
         }
+        
         private static void SetColor()
         {
             Graphic screen = null;
-            if (MainMenu._instance._screenLoading.GetComponentInChildren<Graphic>() != null)
+            try
             {
                 screen = MainMenu._instance._screenLoading.GetComponentInChildren<Graphic>();
+                screen.color = imageColor.Value;
+                screen.material = screen.defaultMaterial;
+                if (logs.Value) MelonLogger.Msg("Color Set!");
             }
-            screen.color = imageColor.Value;
-            screen.material = screen.defaultMaterial;
-            if (logs.Value) { MelonLogger.Msg("Color Set!"); }
-
+            catch (NullReferenceException e)
+            {
+            }
+            return;
         }
 
     }

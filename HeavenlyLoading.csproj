@@ -120,6 +120,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include=".git\ms-persist.xml" />
   </ItemGroup>
   <ItemGroup>

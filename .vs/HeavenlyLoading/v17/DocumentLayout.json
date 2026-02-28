@@ -7,8 +7,18 @@
       "RelativeMoniker": "D:0:0:{F196EB78-2147-4C45-B503-68BC5AE23B3F}|HeavenlyLoading.csproj|solutionrelative:heavenlyloading.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|HeavenlyLoading||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F196EB78-2147-4C45-B503-68BC5AE23B3F}|HeavenlyLoading.csproj|C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{F196EB78-2147-4C45-B503-68BC5AE23B3F}|HeavenlyLoading.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F196EB78-2147-4C45-B503-68BC5AE23B3F}|HeavenlyLoading.csproj|C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F196EB78-2147-4C45-B503-68BC5AE23B3F}|HeavenlyLoading.csproj|solutionrelative:properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F196EB78-2147-4C45-B503-68BC5AE23B3F}|HeavenlyLoading.csproj|c:\\users\\prana\\source\\repos\\heavenly-loading\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,15 +28,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HeavenlyLoading",
+              "DocumentMoniker": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\HeavenlyLoading.csproj",
+              "RelativeDocumentMoniker": "HeavenlyLoading.csproj",
+              "ToolTip": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\HeavenlyLoading.csproj",
+              "RelativeToolTip": "HeavenlyLoading.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-02-19T19:53:51.211Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Bookmark",
@@ -37,8 +60,25 @@
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HeavenlyLoading.cs",
+              "DocumentMoniker": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\HeavenlyLoading.cs",
+              "RelativeDocumentMoniker": "HeavenlyLoading.cs",
+              "ToolTip": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\HeavenlyLoading.cs*",
+              "RelativeToolTip": "HeavenlyLoading.cs*",
+              "ViewState": "AgIAABQAAAAAAAAAAAAgwCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T03:35:35.595Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Bookmark",
@@ -46,29 +86,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HeavenlyLoading.cs",
-              "DocumentMoniker": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\HeavenlyLoading.cs",
-              "RelativeDocumentMoniker": "HeavenlyLoading.cs",
-              "ToolTip": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\HeavenlyLoading.cs",
-              "RelativeToolTip": "HeavenlyLoading.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAYwDUAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T03:35:35.595Z",
-              "EditorCaption": ""
+              "DocumentIndex": 2,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-02-19T19:34:47.535Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\Properties\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "Properties\\AssemblyInfo.cs",
               "ToolTip": "C:\\Users\\Prana\\source\\repos\\Heavenly-Loading\\Properties\\AssemblyInfo.cs",
               "RelativeToolTip": "Properties\\AssemblyInfo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-18T03:36:04.642Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-18T03:36:04.642Z"
             }
           ]
         }
